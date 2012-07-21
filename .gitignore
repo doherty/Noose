@@ -1,2 +1,4 @@
-Noose*
+Noose-*
 .build
+pod2*.tmp
+*.html
