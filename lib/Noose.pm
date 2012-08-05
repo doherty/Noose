@@ -5,6 +5,7 @@ use warnings;
 # VERSION
 
 use Sub::Name;
+use Scalar::Util qw(blessed);
 
 =head1 DESCRIPTION
 
@@ -20,7 +21,7 @@ B<< Noose gives you I<just> enough object orientation to hang yourself. >>
 
 =head2 import
 
-Imports the L</new> method into your class.
+Imports the L</new> constructor into your class.
 
 =cut
 
@@ -81,11 +82,37 @@ is provided etc.
 
 See F<examples/2.pl> for another example of this technique.
 
+=head2 Using the constructor to clone an object
+
+If you call C<new> as an object method, then you will get a clone of the object,
+unless you used some parameters, in which case those parameters will be used
+to create accessors just like with normal object creation. If there already were
+accessors by those names, then the new values will prevail.
+
+See F<examples/3.pl> for example usage.
+
 =cut
 
 sub new {
     my $class = shift;
-    my %args  = @_;
+    my %args = do {
+        if ( blessed $class ) { # If it was called as an object method,
+            require Clone;
+            Clone->import(qw/clone/);   # We're going to clone the object it was called on
+            if (@_) {                   # Add in some args if there were any
+                require Acme::Damn;     # HINT HINT
+                Acme::Damn->import(qw/damn/);
+                ( %{ damn( clone($class) ) }, @_ ); # These args will be used to construct the returned object
+            }
+            else {                      # Otherwise, just return the clone
+                return clone($class);
+            }
+        }
+        else {  # Called as a normal constructor, nothing exciting here
+            @_;
+        }
+    };
+    $class = blessed $class if blessed $class; # Can't bless into a reference, we need the package name
 
     foreach my $attr (keys %args) {
         my $sub_code = sub {
@@ -113,7 +140,8 @@ See the C<examples> subdirectory.
 
 =head1 CAVEATS
 
-In case it isn't obvious, you should not actually use Noose.
+In case it isn't obvious, B<you should not actually use Noose>. It has an C<Acme::>
+module in the dependency tree, for crying out loud!
 
 =cut
 
