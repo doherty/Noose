@@ -1,12 +1,13 @@
+use v5.14.0;
 use strict;
 use warnings;
 
-package Thing;
-use Noose ();
+package Thing {
+    use Noose ();
 
-sub new {
-    Noose::new(shift, error => 'BLARGH', @_);
-}
+    sub new {
+        Noose::new(shift, error => 'BLARGH', @_);
+    }
 
 =head1 Name
 
@@ -26,13 +27,13 @@ dies otherwise.
 
 =cut
 
-sub exclaim {
-    my $self = shift;
-    die $self->error unless $self->a == 1;
-    print "yepyepyepyepyep\n"; # http://youtu.be/KTc3PsW5ghQ
+    sub exclaim {
+        my $self = shift;
+        die $self->error unless $self->a == 1;
+        print "yepyepyepyepyep\n"; # http://youtu.be/KTc3PsW5ghQ
+    }
 }
 
-package main;
 my $thing = Thing->new();
 eval { $thing->exclaim };
 print "$@" if $@; # nope
@@ -45,4 +46,4 @@ $thing = Thing->new(a => 1);
 eval { $thing->exclaim }; # The Martians are A-OK!
 print "$@" if $@;
 
-print "DONE\n";
+say 'DONE';

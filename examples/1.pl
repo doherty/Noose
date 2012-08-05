@@ -1,8 +1,9 @@
+use v5.14.0;
 use strict;
 use warnings;
 
-package Thing;
-use Noose;
+package Thing {
+    use Noose;
 
 =head1 Name
 
@@ -22,13 +23,13 @@ dies otherwise.
 
 =cut
 
-sub exclaim {
-    my $self = shift;
-    die 'BLARGH' unless $self->a == 1;
-    print "yepyepyepyepyep\n"; # http://youtu.be/KTc3PsW5ghQ
+    sub exclaim {
+        my $self = shift;
+        die 'BLARGH' unless $self->a == 1;
+        say 'yepyepyepyepyep'; # http://youtu.be/KTc3PsW5ghQ
+    }
 }
 
-package main;
 my $thing = Thing->new();
 eval { $thing->exclaim };
 print "$@" if $@; # nope
@@ -41,4 +42,4 @@ $thing = Thing->new(a => 1);
 eval { $thing->exclaim }; # The Martians are A-OK!
 print "$@" if $@;
 
-print "DONE\n";
+say 'DONE';
