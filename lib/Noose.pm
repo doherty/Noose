@@ -97,15 +97,15 @@ sub new {
     my $class = shift;
     my %args = do {
         if ( blessed $class ) { # If it was called as an object method,
-            require Clone;
-            Clone->import(qw/clone/);   # We're going to clone the object it was called on
+            require Storable;
+            Storable->import(qw/dclone/);   # We're going to clone the object it was called on
             if (@_) {                   # Add in some args if there were any
                 require Acme::Damn;     # HINT HINT
                 Acme::Damn->import(qw/damn/);
-                ( %{ damn( clone($class) ) }, @_ ); # These args will be used to construct the returned object
+                ( %{ damn( dclone($class) ) }, @_ ); # These args will be used to construct the returned object
             }
             else {                      # Otherwise, just return the clone
-                return clone($class);
+                return dclone($class);
             }
         }
         else {  # Called as a normal constructor, nothing exciting here
