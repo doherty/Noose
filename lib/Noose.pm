@@ -65,7 +65,7 @@ is provided etc.
 
     package Fancy;
     use Noose ();
-    
+
     sub new {
         my $class = shift;
         my %args  = @_;
@@ -123,7 +123,7 @@ sub new {
 
         my $sub_name = $class . '::' . $attr;
         subname $sub_name => $sub_code;
-        
+
         {
             no warnings qw(redefine);
             no strict qw(refs); ## no critic (TestingAndDebugging::ProhibitNoStrict)
