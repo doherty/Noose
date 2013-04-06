@@ -7,7 +7,7 @@ use Obj;
 my %attrs = (a => 1, b => 2, c => 3);
 my $thing = Obj->new( %attrs );
 isa_ok $thing, 'Obj';
-can_ok $thing, qw(a b c);
+can_ok $thing, keys %attrs;
 
 foreach my $attr (keys %attrs) {
     is $thing->$attr, $attrs{$attr}, qq/\$thing->$attr is $attrs{$attr}/;

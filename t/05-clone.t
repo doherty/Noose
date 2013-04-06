@@ -10,7 +10,7 @@ sub exclaim {
 }
 
 package main;
-use Test::More;
+use Test::More tests => 8;
 
 my $thing = Thing->new( a => 0 );
 can_ok $thing, qw/new exclaim a/;
@@ -25,4 +25,3 @@ my $clone = $new->new();
 can_ok $clone, qw/new exclaim a b/;
 is $clone->a => $new->a, 'clone got value for ->a from new';
 is $clone->b => $new->b, 'clone got value for ->b from new';
-done_testing;
