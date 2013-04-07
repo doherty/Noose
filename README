@@ -14,7 +14,7 @@ DESCRIPTION
 
 METHODS
   import
-    Imports the "new" method into your class.
+    Imports the "new" constructor into your class.
 
   new
     You can use "import" to bring new into your class, and it will become a
@@ -43,7 +43,7 @@ METHODS
 
         package Fancy;
         use Noose ();
-    
+
         sub new {
             my $class = shift;
             my %args  = @_;
@@ -60,11 +60,21 @@ METHODS
 
     See examples/2.pl for another example of this technique.
 
+  Using the constructor to clone an object
+    If you call "new" as an object method, then you will get a clone of the
+    object, unless you used some parameters, in which case those parameters
+    will be used to create accessors just like with normal object creation.
+    If there already were accessors by those names, then the new values will
+    prevail.
+
+    See examples/3.pl for example usage.
+
 EXAMPLES
     See the "examples" subdirectory.
 
 CAVEATS
-    In case it isn't obvious, you should not actually use Noose.
+    In case it isn't obvious, you should not actually use Noose. It has an
+    "Acme::" module in the dependency tree, for crying out loud!
 
 AVAILABILITY
     The latest version of this module is available from the Comprehensive

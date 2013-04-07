@@ -18,7 +18,7 @@ __Noose gives you _just_ enough object orientation to hang yourself.__
 
 ## import
 
-Imports the ["new"](#new) method into your class.
+Imports the ["new"](#new) constructor into your class.
 
 ## new
 
@@ -48,7 +48,6 @@ is provided etc.
 
     package Fancy;
     use Noose ();
-    
 
     sub new {
         my $class = shift;
@@ -66,13 +65,23 @@ is provided etc.
 
 See `examples/2.pl` for another example of this technique.
 
+## Using the constructor to clone an object
+
+If you call `new` as an object method, then you will get a clone of the object,
+unless you used some parameters, in which case those parameters will be used
+to create accessors just like with normal object creation. If there already were
+accessors by those names, then the new values will prevail.
+
+See `examples/3.pl` for example usage.
+
 # EXAMPLES
 
 See the `examples` subdirectory.
 
 # CAVEATS
 
-In case it isn't obvious, you should not actually use Noose.
+In case it isn't obvious, __you should not actually use Noose__. It has an `Acme::`
+module in the dependency tree, for crying out loud!
 
 # AVAILABILITY
 
